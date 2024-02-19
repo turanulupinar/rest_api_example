@@ -1,10 +1,9 @@
 import 'dart:convert';
- 
 
 import 'package:flutter/material.dart';
 import 'package:rest_api_example/constant/service_constants.dart';
 import 'package:rest_api_example/page/photos_page/photo_model.dart';
- 
+
 import 'package:rest_api_example/service/base_service.dart';
 
 class PhotosPage extends StatefulWidget {
@@ -59,7 +58,7 @@ class _PhotosPageState extends State<PhotosPage> {
             onPressed: () async {
               await getPhotoData();
             },
-            label: const Text("Get Photos")),
+            label: const Text("Get Data")),
         Expanded(
             child: ListView.builder(
                 itemCount: photoList.length,

@@ -15,45 +15,64 @@ class PostsPageView extends StatefulWidget {
 class _PostsPageViewState extends State<PostsPageView> {
   BaseService postsService = BaseService();
   List<PostsModel> userPostLists = [];
-
+  bool isLoading = false;
   Future getPostsData() async {
+    setState(() {
+      isLoading = true;
+    });
     final res = await postsService.getData(ServiseContants.posts);
 
     List<dynamic> listPostModel = jsonDecode(res);
 
+    userPostLists =
+        listPostModel.map((user) => PostsModel?.fromJson(user)).toList();
+
     setState(() {
-      userPostLists =
-          listPostModel.map((user) => PostsModel?.fromJson(user)).toList();
+      isLoading = false;
     });
-    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Column(
-            children: [
-              ElevatedButton(
-                onPressed: () async {
-                  await getPostsData();
-                },
-                child: const Text("yorumları getir"),
-              ),
-              ...List.generate(userPostLists.length, (index) {
-                PostsModel postList = userPostLists[index];
-                return Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: CustomCard(
-                        circleId: postList.userId.toString(),
-                        subtitle: postList.body.toString(),
-                        title:
-                            " ${postList.id.toString()}.  ${postList.title.toString()}"));
-              })
-            ],
+      appBar: AppBar(
+        centerTitle: false,
+        title: const Text("Todo List"),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: ElevatedButton(
+              onPressed: () async {
+                await getPostsData();
+              },
+              child: isLoading
+                  ? const Text("Yorumları Getiriliyor..")
+                  : const Text("Yorumları Getir"),
+            ),
           ),
-        ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  ...List.generate(userPostLists.length, (index) {
+                    PostsModel postList = userPostLists[index];
+                    return Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: CustomCard(
+                            circleId: postList.userId.toString(),
+                            subtitle: postList.body.toString(),
+                            title:
+                                " ${postList.id.toString()}.  ${postList.title.toString()}"));
+                  })
+                ],
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
@@ -102,12 +121,15 @@ class CustomCard extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(
-          left: 340,
-          child: CircleAvatar(
-            backgroundColor: Colors.white,
-            radius: 20,
-            child: Text(circleId),
+        Padding(
+          padding: const EdgeInsets.only(right: 16.0, top: 12),
+          child: Align(
+            alignment: Alignment.topRight,
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              radius: 20,
+              child: Text(circleId),
+            ),
           ),
         ),
       ],
