@@ -1,5 +1,5 @@
 import 'dart:convert';
- 
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:rest_api_example/constant/service_constants.dart';
@@ -31,7 +31,12 @@ class _UserPageState extends State<UserPage> {
     await Future.delayed(const Duration(seconds: 2));
     final res = await _baseService.getData(ServiseContants.users);
 
+    log(res.toString());
+
     List<dynamic> userModel = jsonDecode(res);
+     
+     
+    
 
     setState(() {
       userList = userModel.map((user) => UserModel.fromJson(user)).toList();
