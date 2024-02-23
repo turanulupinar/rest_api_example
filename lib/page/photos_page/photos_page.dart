@@ -1,10 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:rest_api_example/constant/service_constants.dart';
+
 import 'package:rest_api_example/page/photos_page/photo_model.dart';
 
-import 'package:rest_api_example/service/base_service.dart';
+import 'photo_model_view.dart';
 
 class PhotosPage extends StatefulWidget {
   const PhotosPage({super.key});
@@ -14,27 +12,23 @@ class PhotosPage extends StatefulWidget {
 }
 
 class _PhotosPageState extends State<PhotosPage> {
-  final _baseService = BaseService();
-  List<PhotoModel> photoList = [];
+  List<PhotoModel>? photoList = [];
   bool isLoading = false;
-  // @override
-  // void initState() {
-  //   getUserData();
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    getPhotoData();
+    super.initState();
+  }
 
   getPhotoData() async {
     setState(() {
-      photoList.clear();
+      photoList?.clear();
       isLoading = true;
     });
 
-    final res = await _baseService.getData(ServiseContants.photos);
-
-    List<dynamic> photosData = jsonDecode(res);
+    photoList = await PhotoPageViewModel().getPhotoData();
 
     setState(() {
-      photoList = photosData.map((user) => PhotoModel.fromJson(user)).toList();
       isLoading = false;
     });
   }
@@ -61,9 +55,9 @@ class _PhotosPageState extends State<PhotosPage> {
             label: const Text("Get Data")),
         Expanded(
             child: ListView.builder(
-                itemCount: photoList.length,
+                itemCount: photoList?.length,
                 itemBuilder: (context, index) {
-                  final photo = photoList[index];
+                  final photo = photoList?[index];
                   return Container(
                     width: double.maxFinite,
                     height: 250,
@@ -77,12 +71,12 @@ class _PhotosPageState extends State<PhotosPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Image.network(
-                            photo.url ?? "",
+                            photo?.url ?? "",
                             fit: BoxFit.cover,
                             height: 200,
                             width: double.infinity,
                           ),
-                          Text(photo.title ?? "")
+                          Text(photo?.title ?? "")
                         ]),
                   );
                 }))

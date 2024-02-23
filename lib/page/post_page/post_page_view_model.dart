@@ -45,3 +45,10 @@ class PostPageViewModel {
     return "Veri silinemedi!";
   }
 }
+
+
+
+
+
+
+ 
