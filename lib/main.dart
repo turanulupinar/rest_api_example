@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'page/album_page/album_view.dart';
-import 'page/food_page/food_page.dart';
-import 'page/photos_page/photos_page.dart';
-import 'page/post_page/post_page.dart';
-import 'page/todos_page/post_page.dart';
+
+import 'page/navigator_bar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,12 +13,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const FoodPage(),
+      home: const NavigatorBar(),
     );
   }
 }

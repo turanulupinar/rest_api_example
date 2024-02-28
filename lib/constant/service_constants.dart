@@ -12,3 +12,18 @@ class ReceiptConstants {
   static const String baseUrl = "https://www.themealdb.com/api/json/v1/1/";
   static const String search = "search.php"; // endpoint
 }
+
+class CategoryConstant {
+  static const String baseUrl =
+      "https://www.themealdb.com/api/json/v1/1/categories.php";
+}
+
+class DetailConstant {
+  static const String baseUrl =
+      "https://www.themealdb.com/api/json/v1/1/lookup.php";
+}
+
+class ElementConstant {
+  static const baseUrl = "https://www.themealdb.com/api/json/v1/1/";
+  static const search = "list.php?i=";
+}
