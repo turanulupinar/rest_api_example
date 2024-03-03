@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import '../../constant/service_constants.dart';
 import '../../service/base_service.dart';
-import 'models/food_model.dart';
+import '../../model/food_model.dart';
 
 class FoodPageViewModel {
   final receiptsBaseUrl = ReceiptConstants.baseUrl;

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:rest_api_example/page/food_page/models/category_model.dart';
+import 'package:rest_api_example/model/category_model.dart';
 
 import '../../constant/service_constants.dart';
 import '../../service/base_service.dart';

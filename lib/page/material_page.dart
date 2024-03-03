@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rest_api_example/page/material_desc_page/material_view_model.dart';
-import 'package:rest_api_example/page/food_page/models/material_model.dart';
+import 'package:rest_api_example/model/material_model.dart';
 
 class MatPage extends StatefulWidget {
   const MatPage({super.key});
@@ -28,7 +28,7 @@ class _MatPageState extends State<MatPage> {
               },
               icon: const Icon(Icons.add))
         ],
-        title: const Text("material"),
+        title: const Text("Yemek Malzemeleri"),
       ),
       body: Column(
         children: [
@@ -38,14 +38,16 @@ class _MatPageState extends State<MatPage> {
               child: ListView.builder(
                   itemCount: model.meals?.length,
                   itemBuilder: (context, index) {
-                    var tek = model.meals?[index];
+                    var material = model.meals?[index];
                     return ListTile(
                       leading: Text(
-                        tek?.idIngredient.toString() ?? "",
+                        material?.idIngredient.toString() ?? "",
                       ),
-                      title: Text(tek?.strIngredient.toString() ?? "",
+                      title: Text(material?.strIngredient.toString() ?? "",
                           style: Theme.of(context).textTheme.titleLarge),
-                      subtitle: Text(tek?.strDescription.toString() ?? ""),
+                      subtitle: material?.strDescription?[index] != null
+                          ? Text(material?.strDescription.toString() ?? "")
+                          : const Text(""),
                     );
                   })),
         ],

@@ -18,14 +18,14 @@ class _NavigatorBarState extends State<NavigatorBar> {
   Widget build(BuildContext context) {
     return Scaffold(
         bottomNavigationBar: BottomNavigationBar(
-            selectedFontSize: 20,
+            selectedFontSize: 10,
             currentIndex: currentIndex,
             onTap: (int currentPageIndex) {
               setState(() {
                 currentIndex = currentPageIndex;
               });
             },
-            backgroundColor: Colors.pink.shade900,
+            backgroundColor: Colors.deepPurple.shade200,
             selectedItemColor: Colors.white,
             unselectedItemColor: Colors.white54,
             iconSize: 32,

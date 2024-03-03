@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 
-import '../../../constant/service_constants.dart';
-import '../../../service/base_service.dart';
+import '../constant/service_constants.dart';
+import '../service/base_service.dart';
 import 'food_detail_model.dart';
 
 class DetailViewModel {

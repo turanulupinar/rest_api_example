@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:rest_api_example/page/material_desc_page/detail_food_page.dart';
 
-import 'package:rest_api_example/page/food_page/models/food_detail_model.dart';
+import 'package:rest_api_example/model/food_detail_model.dart';
 
-import 'package:rest_api_example/page/food_page/models/food_model.dart';
+import 'package:rest_api_example/model/food_model.dart';
 
 import 'food_view_model.dart';
 

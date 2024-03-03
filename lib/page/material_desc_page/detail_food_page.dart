@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rest_api_example/page/food_page/models/detail_view_model.dart';
-import 'package:rest_api_example/page/food_page/models/food_detail_model.dart';
+import 'package:rest_api_example/model/detail_view_model.dart';
+import 'package:rest_api_example/model/food_detail_model.dart';
 
 class DetailFoodPage extends StatefulWidget {
   const DetailFoodPage({super.key, this.idNo});
@@ -12,7 +12,9 @@ class DetailFoodPage extends StatefulWidget {
 
 class _DetailFoodPageState extends State<DetailFoodPage> {
   DetailModel detailModel = DetailModel();
-  List<Map<String, dynamic>> mealMaterials = [{}];
+  List<String> measureList = [];
+  List<String> ingredientList = [];
+  List<Map<String, String>> measureAndIngredientList = [];
 
   @override
   void initState() {
@@ -24,12 +26,40 @@ class _DetailFoodPageState extends State<DetailFoodPage> {
   getDetail() async {
     detailModel = await DetailViewModel().getDetailData(widget.idNo ?? "52772");
     setState(() {});
-    mealMaterials = [
+
+    measureAndIngredientList = [
       {
-        "title": detailModel.meals?.first.strIngredient1,
+        "measure": detailModel.meals?.first.strMeasure1.toString() ?? "",
+        "ingredient": detailModel.meals?.first.strIngredient1.toString() ?? ""
+      },
+      {
+        "measure": detailModel.meals?.first.strMeasure2.toString() ?? "",
+        "ingredient": detailModel.meals?.first.strIngredient2.toString() ?? ""
+      },
+      {
+        "measure": detailModel.meals?.first.strMeasure3.toString() ?? "",
+        "ingredient": detailModel.meals?.first.strIngredient3.toString() ?? ""
+      },
+      {
+        "measure": detailModel.meals?.first.strMeasure4.toString() ?? "",
+        "ingredient": detailModel.meals?.first.strIngredient4.toString() ?? ""
+      },
+      {
+        "measure": detailModel.meals?.first.strMeasure5.toString() ?? "",
+        "ingredient": detailModel.meals?.first.strIngredient5.toString() ?? ""
       }
     ];
+
     setState(() {});
+  }
+
+  String editTag() {
+    var tag = detailModel.meals?.first.strTags;
+    if ((tag?.split(",").length ?? 5) > 1) {
+      return "#${tag?.split(",").join("  #").toLowerCase() ?? ""}";
+    }
+
+    return "#${tag?.toLowerCase()}";
   }
 
   @override
@@ -97,15 +127,24 @@ class _DetailFoodPageState extends State<DetailFoodPage> {
                       "Malzemeler",
                       style: Textstl.mealTitle.styleFunc(context),
                     ),
-                    ...List.generate(mealMaterials.length, (index) {
-                      //  if (mealMaterials.isNotEmpty == true) {
-
-                      //  }
+                    ...List.generate(measureAndIngredientList.length, (index) {
+                      var kef = measureAndIngredientList[index];
 
                       return ListTile(
-                        leading: const CircleAvatar(
-                            backgroundImage: NetworkImage("")),
-                        title: Text(mealMaterials[index].toString()),
+                        leading: CircleAvatar(
+                            backgroundImage: NetworkImage(detailModel
+                                    .meals?.first.strMealThumb
+                                    .toString() ??
+                                "")),
+                        title: Row(
+                          children: [
+                            Text(kef.values.first.toString()),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(kef.values.last.toString()),
+                          ],
+                        ),
                       );
                     }),
                     const SizedBox(
@@ -121,6 +160,16 @@ class _DetailFoodPageState extends State<DetailFoodPage> {
                           detailModel.meals?.first.strInstructions.toString() ??
                               ""),
                     ),
+                    const Divider(
+                      endIndent: 50,
+                      height: 5,
+                      indent: 50,
+                      thickness: 5,
+                    ),
+                    const SizedBox(height: 20),
+                    if (detailModel.meals?.first.strTags?.isNotEmpty == true)
+                      Text(editTag()),
+                    const SizedBox(height: 20)
                   ],
                 ),
               ],
@@ -131,12 +180,6 @@ class _DetailFoodPageState extends State<DetailFoodPage> {
     );
   }
 }
-
-
-
-
-
-
 
 enum Textstl { bodyMedium, bodyLarge, titlestyle, mealTitle }
 
