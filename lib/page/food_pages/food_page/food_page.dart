@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:rest_api_example/page/material_desc_page/detail_food_page.dart';
+import 'package:rest_api_example/page/food_pages/detail_food_page/detail_food_page.dart';
 
 import 'package:rest_api_example/model/food_detail_model.dart';
 
 import 'package:rest_api_example/model/food_model.dart';
+import 'package:rest_api_example/util/toast_messenger.dart';
 
 import 'food_view_model.dart';
 
@@ -68,18 +69,35 @@ class _FoodPageState extends State<FoodPage> {
                       )),
               onPressed: () async {
                 if (_controller.text.isEmpty) {
-                  throw Exception("Arama metni boş olamaz!");
+                  CustomToast.showToast(msg: "Lütfen bir ifade girin!");
+                  return;
                 }
                 await getReceipts();
               },
               label: const Text("Tarif getir")),
-          Expanded(
-              child: ListView.builder(
-                  itemCount: receipts.meals?.length ?? 0,
-                  itemBuilder: (context, index) {
-                    final item = receipts.meals?[index];
+          if (receipts.meals?.isNotEmpty == true)
+            Expanded(
+                child: ListView.builder(
+                    itemCount: receipts.meals?.length ?? 0,
+                    itemBuilder: (context, index) {
+                      final item = receipts.meals?[index];
 
-                    return ListTile(
+                      return ListTile(
+                        onTap: () {
+                          if (item?.idMeal == null) {
+                            CustomToast.showToast(
+                                msg:
+                                    "Şu anda menü içeriğine ulaşılamıyor! Üzgünüz :/");
+                            return;
+                          }
+
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DetailFoodPage(
+                                        idNo: item?.idMeal,
+                                      )));
+                        },
                         leading: CircleAvatar(
                           backgroundImage: NetworkImage(
                             item?.strMealThumb ?? "",
@@ -88,25 +106,9 @@ class _FoodPageState extends State<FoodPage> {
                         title: Text(item?.strMeal ?? ""),
                         subtitle: Text(
                             "Kategori: ${item?.strCategory}  ${item?.strArea} Mutfağı"),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.arrow_forward_ios),
-                          onPressed: () async {
-                            if (item?.idMeal != null) {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                if (model.meals == null) {
-                                  return DetailFoodPage(
-                                    idNo: item?.idMeal,
-                                  );
-                                }
-                                return const SizedBox(
-                                  child: Text("data"),
-                                );
-                              }));
-                            }
-                          },
-                        ));
-                  }))
+                        trailing: const Icon(Icons.arrow_forward_ios),
+                      );
+                    }))
         ],
       ),
     );

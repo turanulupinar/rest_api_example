@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rest_api_example/page/food_page/food_page.dart';
+import 'package:rest_api_example/page/food_pages/food_page/food_page.dart';
 
-import 'food_home_page.dart';
+import 'food_pages/food_home_page.dart';
 import 'material_page.dart';
 
 class NavigatorBar extends StatefulWidget {

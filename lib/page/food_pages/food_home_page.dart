@@ -1,9 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:rest_api_example/page/random_page/custom_random_food.dart';
+import 'package:rest_api_example/page/food_pages/random_page/custom_random_food.dart';
 
 import 'food_page/category_view_model.dart';
-import 'material_desc_page/detail_food_page.dart';
-import '../model/category_model.dart';
+import 'detail_food_page/detail_food_page.dart';
+import '../../model/category_model.dart';
 
 class FoodHomePage extends StatefulWidget {
   const FoodHomePage({super.key});
@@ -34,7 +35,6 @@ class _FoodHomePageState extends State<FoodHomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-           
             foodCard,
             const SizedBox(
               height: 30,
@@ -61,13 +61,19 @@ class _FoodHomePageState extends State<FoodHomePage> {
                       child: Column(
                         children: [
                           Container(
+                            padding: const EdgeInsets.all(9),
                             height: 100,
                             width: 150,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                image: DecorationImage(
-                                    image: NetworkImage(
-                                        item?.strCategoryThumb ?? ""))),
+                              color: Colors.grey.shade100,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: CachedNetworkImage(
+                              imageUrl: item?.strCategoryThumb ?? "",
+                              fit: BoxFit.cover,
+                              height: 100,
+                              width: 150,
+                            ),
                           ),
                           Text(item?.strCategory.toString() ?? "")
                         ],
