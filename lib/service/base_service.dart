@@ -9,7 +9,7 @@ class BaseService {
 
   //API'den Verileri al
   Future<dynamic> getData(String path) async {
-    final Uri url = Uri.parse(baseUrl + path);
+     Uri url = Uri.parse(baseUrl + path);
 
     final response = await http.get(url);
 
@@ -47,6 +47,8 @@ class BaseService {
     );
     return response;
   }
+
+
 }
 
 /// API Hakkında Genel Not

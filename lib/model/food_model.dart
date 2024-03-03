@@ -24,7 +24,7 @@ class ReceiptModels {
 class Meals {
   String? idMeal;
   String? strMeal;
-  Null? strDrinkAlternate;
+
   String? strCategory;
   String? strArea;
   String? strInstructions;
@@ -72,14 +72,12 @@ class Meals {
   String? strMeasure19;
   String? strMeasure20;
   String? strSource;
-  Null? strImageSource;
-  Null? strCreativeCommonsConfirmed;
-  Null? dateModified;
+ 
 
   Meals(
       {this.idMeal,
       this.strMeal,
-      this.strDrinkAlternate,
+    
       this.strCategory,
       this.strArea,
       this.strInstructions,
@@ -127,14 +125,12 @@ class Meals {
       this.strMeasure19,
       this.strMeasure20,
       this.strSource,
-      this.strImageSource,
-      this.strCreativeCommonsConfirmed,
-      this.dateModified});
+      });
 
   Meals.fromJson(Map<String, dynamic> json) {
     idMeal = json['idMeal'];
     strMeal = json['strMeal'];
-    strDrinkAlternate = json['strDrinkAlternate'];
+   
     strCategory = json['strCategory'];
     strArea = json['strArea'];
     strInstructions = json['strInstructions'];
@@ -182,16 +178,14 @@ class Meals {
     strMeasure19 = json['strMeasure19'];
     strMeasure20 = json['strMeasure20'];
     strSource = json['strSource'];
-    strImageSource = json['strImageSource'];
-    strCreativeCommonsConfirmed = json['strCreativeCommonsConfirmed'];
-    dateModified = json['dateModified'];
+
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data =   <String, dynamic>{};
     data['idMeal'] = idMeal;
     data['strMeal'] = strMeal;
-    data['strDrinkAlternate'] = strDrinkAlternate;
+ 
     data['strCategory'] = strCategory;
     data['strArea'] = strArea;
     data['strInstructions'] = strInstructions;
@@ -239,9 +233,7 @@ class Meals {
     data['strMeasure19'] = strMeasure19;
     data['strMeasure20'] = strMeasure20;
     data['strSource'] = strSource;
-    data['strImageSource'] = strImageSource;
-    data['strCreativeCommonsConfirmed'] = strCreativeCommonsConfirmed;
-    data['dateModified'] = dateModified;
+ 
     return data;
   }
 }
