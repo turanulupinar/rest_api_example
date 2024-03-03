@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'package:rest_api_example/page/food_pages/detail_food_page/detail_food_page.dart';
@@ -24,9 +26,11 @@ class _FoodPageState extends State<FoodPage> {
 
   final TextEditingController _controller = TextEditingController();
   getReceipts() async {
+    log("skmnsls");
     setState(() {
       isLoading = true;
     });
+
     receipts =
         await FoodPageViewModel().getReceiptsData(query: _controller.text);
     setState(() {
@@ -72,6 +76,7 @@ class _FoodPageState extends State<FoodPage> {
                   CustomToast.showToast(msg: "Lütfen bir ifade girin!");
                   return;
                 }
+                if (isLoading == true) return;
                 await getReceipts();
               },
               label: const Text("Tarif getir")),

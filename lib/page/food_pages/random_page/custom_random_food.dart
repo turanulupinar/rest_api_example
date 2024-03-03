@@ -95,6 +95,7 @@ class _RandomFoodCardState extends State<RandomFoodCard> {
                                     msg: "Menü detayı bulunamadı!");
                                 return;
                               }
+                              
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
