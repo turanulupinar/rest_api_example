@@ -1,7 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:rest_api_example/page/food_pages/random_page/custom_random_food.dart';
 
+import 'package:rest_api_example/page/food_pages/random_page/custom_random_food.dart';
+import 'package:rest_api_example/widgets/custom_loading_widget.dart';
+
+import 'category_detail_page/category_detail_page.dart';
 import 'food_page/category_view_model.dart';
 import 'detail_food_page/detail_food_page.dart';
 import '../../model/category_model.dart';
@@ -16,8 +19,15 @@ class FoodHomePage extends StatefulWidget {
 class _FoodHomePageState extends State<FoodHomePage> {
   CategoryModel catModel = CategoryModel();
   RandomFoodCard foodCard = const RandomFoodCard();
+  
   getCategories() async {
+    setState(() {});
+   
+    await Future.delayed(const Duration(seconds: 2));
+
     catModel = await CategoryViewModel().getDetailData();
+  
+
     setState(() {});
   }
 
@@ -68,11 +78,26 @@ class _FoodHomePageState extends State<FoodHomePage> {
                               color: Colors.grey.shade100,
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            child: CachedNetworkImage(
-                              imageUrl: item?.strCategoryThumb ?? "",
-                              fit: BoxFit.cover,
+                            child: SizedBox(
                               height: 100,
                               width: 150,
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                        
+                                        
+                                                CategoryDetailPage(
+                                                      categoryModel: catModel,
+                                                    )));
+                                },
+                                child: CachedNetworkImage(
+                                  imageUrl: item?.strCategoryThumb ?? "",
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             ),
                           ),
                           Text(item?.strCategory.toString() ?? "")

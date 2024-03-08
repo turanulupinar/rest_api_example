@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:rest_api_example/model/random_model.dart';
-import 'package:rest_api_example/page/food_pages/random_page/random_detail_page.dart';
+
 import 'package:rest_api_example/page/food_pages/random_page/random_view_model.dart';
 import 'package:rest_api_example/util/toast_messenger.dart';
 

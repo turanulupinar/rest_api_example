@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -6,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:rest_api_example/page/post_page/models/request_post_model.dart';
 import 'package:rest_api_example/page/post_page/models/response_post_model.dart';
 import 'package:rest_api_example/page/todos_page/post_model.dart';
-
 
 import 'post_page_view_model.dart';
 
